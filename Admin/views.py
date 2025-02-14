@@ -22,27 +22,6 @@ def editdistrict(request,eid):
     else:    
         return render(request,'Admin/District.html',{"editdist":dist})
 
-# Category Section
-def category(request):
-    category=tbl_category.objects.all()
-    if request.method=="POST":
-        tbl_category.objects.create(category_name=request.POST.get('txt_category'))
-        return redirect('Admin:category')
-    else:
-        return render(request,'Admin/Category.html',{"category":category})
-def deletecategory(request,did):
-    tbl_category.objects.get(id=did).delete()
-    return redirect('Admin:category')
-def editcategory(request,eid):
-    cat=tbl_category.objects.get(id=eid)
-    if request.method=="POST":
-        cat.category_name=request.POST.get('txt_category')
-        cat.save()
-        return redirect('Admin:category')
-    else:
-        return render(request,'Admin/Category.html',{"editcat":cat})
-
-
 # Admin Section
 def AdminRegistration(request):
     admin=tbl_admin.objects.all()
@@ -91,7 +70,25 @@ def deletePlace(request,did):
     tbl_place.objects.get(id=did).delete()
     return redirect('Admin:Place')
 
-
+# Category Section
+def category(request):
+    category=tbl_category.objects.all()
+    if request.method=="POST":
+        tbl_category.objects.create(category_name=request.POST.get('txt_category'))
+        return redirect('Admin:category')
+    else:
+        return render(request,'Admin/Category.html',{"category":category})
+def deleteCategory(request,did):
+    tbl_category.objects.get(id=did).delete()
+    return redirect('Admin:category')
+def editCategory(request,eid):
+    cat=tbl_category.objects.get(id=eid)
+    if request.method=="POST":
+        cat.category_name=request.POST.get('txt_category')
+        cat.save()
+        return redirect('Admin:category')
+    else:
+        return render(request,'Admin/Category.html',{"editcat":cat})
 
 #Subcategory
 def Subcategory(request):
@@ -99,8 +96,23 @@ def Subcategory(request):
     subcategory=tbl_subcategory.objects.all()
     if request.method=="POST":
         cat=tbl_category.objects.get(id=request.POST.get("sel_category"))
-        subcategory_name=request.POST.get("txt_subcategory")
-        tbl_subcategory.objects.create(category=cat,subcategory_name=subcategory_name)
-        return render(request,'Admin/Subcategory.html')
+        sub=request.POST.get("txt_subcategory")
+        tbl_subcategory.objects.create(category=cat,subcategory_name=sub)
+        return render(request,'Admin/Subcategory.html',{"category":category,"subcategory":subcategory})
     else:
         return render(request,'Admin/Subcategory.html',{"category":category,"subcategory":subcategory})
+    
+def deleteSubcategory(request,did):
+    tbl_subcategory.objects.get(id=did).delete()
+    return redirect('Admin:subcategory')
+
+def editSubcategory(request,eid):
+    sub=tbl_subcategory.objects.get(id=eid)
+    category=tbl_category.objects.all()
+    if request.method=="POST":
+        sub.category=tbl_category.objects.get(id=request.POST.get("sel_category"))
+        sub.subcategory_name=request.POST.get('txt_subcategory')
+        sub.save()
+        return redirect('Admin:subcategory')
+    else:
+        return render(request,'Admin/Subcategory.html',{"editsub":sub, "category":category})
