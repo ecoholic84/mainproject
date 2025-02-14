@@ -1,0 +1,6 @@
+from django.urls import path,include 
+from Guest import views
+app_name='Guest'
+urlpatterns = [
+    path('userRegistration/',views.userRegistration,name='userRegistration'),
+]
