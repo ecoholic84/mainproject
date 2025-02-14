@@ -74,24 +74,23 @@ def Place(request):
         dist=tbl_district.objects.get(id=request.POST.get("sel_district"))
         place_name=request.POST.get("txt_place")
         tbl_place.objects.create(district=dist,place_name=place_name)
-        return redirect(request,'Admin:place')
+        return redirect('Admin:Place')
     else:
         return render(request,'Admin/Place.html',{"district":district,"place":Place})
     
 def editPlace(request, eid):
     plac=tbl_place.objects.get(id=eid)
     if request.method=="POST":
-        plac.district_name=request.POST.get('txt_district')
+        plac.place_name=request.POST.get('txt_place')
         plac.save()
-        return redirect('Admin:district')
+        return redirect('Admin:Place')
     else:
-        return render(request,'Admin/District.html',{"editdist":plac})
+        return render(request,'Admin/Place.html',{"editPlace":plac})
     
-
-
-def deletedistrict(request,did):
+def deletePlace(request,did):
     tbl_place.objects.get(id=did).delete()
     return redirect('Admin:Place')
+
 
 
 #Subcategory

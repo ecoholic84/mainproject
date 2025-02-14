@@ -21,7 +21,7 @@
             </tr>
             <tr>
                 <td>Place</td>
-                <td><input type="text" name="txt_place" id="txt_place"></td>
+                <td><input type="text" name="txt_place" id="txt_place" value="{{editPlace.place_name}}"></td>
             </tr>
             <tr>
                 <td colspan="2" align="center"><input type="submit" value="Submit"></td>
@@ -42,7 +42,8 @@
                 <td>{{forloop.counter}}</td>
                 <td>{{ i.district.district_name }}</td>
                 <td>{{i.place_name}}</td>
-                <td></td>
+                <td><a href="{% url 'Admin:deletePlace' i.id %}">Delete</a></td>
+                <td><a href="{% url 'Admin:editPlace' i.id %}">Edit</a></td>
             </tr>
             {% endfor %}
         </table>

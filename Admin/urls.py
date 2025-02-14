@@ -12,5 +12,7 @@ urlpatterns = [
     path('deleteadmin/<int:did>',views.deleteadmin,name='deleteadmin'),
     path('editadmin/<int:eid>',views.editadmin,name='editadmin'),
     path('place/',views.Place,name="Place"),
+    path('deletePlace/<int:did>',views.deletePlace,name="deletePlace"),
+    path('editPlace/<int:eid>',views.editPlace,name='editPlace'),  
     path('subcategory/',views.Subcategory,name="Subcategory"),
 ]
