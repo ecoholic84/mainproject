@@ -59,12 +59,14 @@ def Place(request):
     
 def editPlace(request, eid):
     plac=tbl_place.objects.get(id=eid)
+    district=tbl_district.objects.all()
     if request.method=="POST":
+        plac.district=tbl_district.objects.get(id=request.POST.get("sel_district"))
         plac.place_name=request.POST.get('txt_place')
         plac.save()
         return redirect('Admin:Place')
     else:
-        return render(request,'Admin/Place.html',{"editPlace":plac})
+        return render(request,'Admin/Place.html',{"editPlace":plac, "district":district})
     
 def deletePlace(request,did):
     tbl_place.objects.get(id=did).delete()
