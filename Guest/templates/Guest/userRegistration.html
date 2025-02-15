@@ -7,6 +7,7 @@
 <body>
     <h1 align="center">User Registration</h1>
     <form method="POST">
+        {% csrf_token %}
         <table align="center" border="1">
             <tr>
                 <td>Name</td>
@@ -31,13 +32,10 @@
             <tr>
                 <td>District</td>
                 <td>
-                    <select name="sel_district" id="">
+                    <select name="sel_district" id="sel_district">
                         <option value="">Select</option>
                         {% for i in district %}
                         <option 
-                        {% if i.id == editPlace.district_id %}
-                        selected
-                        {% endif %}
                         value="{{i.id}}">{{i.district_name}}</option>
                         {% endfor %}
                     </select>
