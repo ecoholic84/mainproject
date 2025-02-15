@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from Admin.models import *
 from Guest.models import *
+from User.models import *
 # Create your views here.
 def userRegistration(request):
     dis=tbl_district.objects.all()
@@ -11,3 +12,22 @@ def userRegistration(request):
 def ajaxPlace(request):
     place=tbl_place.objects.filter(district=request.GET.get("did"))
     return render(request,'Guest/ajaxPlace.html', {"place":place})
+
+def login(request):
+    if request.method=="POST":
+        email=request.POST.get('txt_email')
+        password=request.POST.get('txt_password')
+        adminCount=tbl_admin.objects.filter(admin_email=email,admin_password=password).count()
+        userCount=tbl_user.objects.filter(user_email=email,user_password=password).count()
+        if userCount > 0:
+            user=tbl_user.objects.get(user_email=email,user_password=password)
+            request.session['u_id']=user.id
+            return redirect('User:userDashboard')
+        elif adminCount > 0:
+            admin=tbl_admin.objects.get(admin_email=email,admin_password=password)
+            request.session['a_id']=admin.id
+            return redirect('Admin:adminDashboard')
+        else:
+            return render(request,'Guest/login.html')
+    else:
+        return render(request,'Guest/login.html')

@@ -23,17 +23,19 @@ def editdistrict(request,eid):
         return render(request,'Admin/District.html',{"editdist":dist})
 
 # Admin Section
-def AdminRegistration(request):
+def adminRegistration(request):
     admin=tbl_admin.objects.all()
     if request.method=="POST":
-        tbl_admin.objects.create(admin_name=request.POST.get('txt_name'),admin_contact=request.POST.get('txt_contact'),admin_email=request.POST.get('txt_email'),admin_password=request.POST.get('txt_password'))
-        return redirect('Admin:adminregistration')
+        tbl_admin.objects.create(admin_name=request.POST.get('txt_name'),admin_email=request.POST.get('txt_email'),admin_password=request.POST.get('txt_password'))
+        return redirect('Admin:adminRegistration')
     else:
-        return render(request,'Admin/AdminRegistration.html',{"admin":admin})
-def deleteadmin(request,did):
+        return render(request,'Admin/adminRegistration.html',{"admin":admin})
+
+def deleteAdmin(request,did):
     tbl_admin.objects.get(id=did).delete()
-    return redirect('Admin:adminregistration')
-def editadmin(request,eid):
+    return redirect('Admin:adminRegistration')
+
+def editAdmin(request,eid):
     adm=tbl_admin.objects.get(id=eid)
     if request.method=="POST":
         adm.admin_name=request.POST.get('txt_name')
@@ -41,9 +43,9 @@ def editadmin(request,eid):
         adm.admin_email=request.POST.get('txt_email')
         adm.admin_password=request.POST.get('txt_password')
         adm.save()
-        return redirect('Admin:adminregistration')
+        return redirect('Admin:adminRegistration')
     else:
-        return render(request,'Admin/AdminRegistration.html',{"editadm":adm})
+        return render(request,'Admin/adminRegistration.html',{"editadmin":editadmin})
 
 #Place Section
 def Place(request):
@@ -118,3 +120,8 @@ def editSubcategory(request,eid):
         return redirect('Admin:subcategory')
     else:
         return render(request,'Admin/Subcategory.html',{"editsub":sub, "category":category})
+
+# Dashboard
+
+def adminDashboard(request):
+    return render(request,'Admin/adminDashboard.html')
