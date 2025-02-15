@@ -46,13 +46,6 @@
                 <td>
                     <select name="sel_place" id="sel_place">
                         <option value="">Select</option>
-                        {% for place in places %}
-                        <option 
-                        {% if place.id == editPlace.place_id %}
-                        selected
-                        {% endif %}
-                        value="{{place.id}}">{{place.place_name}}</option>
-                        {% endfor %}
                     </select>
                 </td>
             </tr>
@@ -67,3 +60,18 @@
     </form>
 </body>
 </html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $("#sel_district").change(function () {
+        var did = $(this).val();
+        var ur = "{% url 'Guest:ajaxPlace' %}"
+        $.ajax({
+            url: ur,
+            data: { did: did, },
+            success: function (data) {
+                $("#sel_place").html(data);
+            },
+        });
+    });
+</script>
