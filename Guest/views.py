@@ -28,6 +28,6 @@ def login(request):
             request.session['a_id']=admin.id
             return redirect('Admin:adminDashboard')
         else:
-            return render(request,'Guest/login.html')
+            return render(request,'Guest/login.html',{'msg':"invalid login"})
     else:
         return render(request,'Guest/login.html')
