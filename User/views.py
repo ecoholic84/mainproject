@@ -22,4 +22,17 @@ def editProfile(request):
         return render(request, 'User/editProfile.html', {'editProfile':editProfile})
 
 def changePassword(request):
+    loggedUser=tbl_user.objects.get(id=request.session['u_id'])
+    if request.method=="POST":
+        oldPassword=request.POST.get('txt_old_password')
+        newPassword=request.POST.get('txt_new_password')
+        confirmPassword=request.POST.get('txt_confirm_password')
+        if loggedUser.user_password==oldPassword:
+            if newPassword==confirmPassword:
+                loggedUser.user_password=newPassword
+                loggedUser.save()
+            else:
+                return redirect('User:myProfile')
+        else:
+            return redirect('User:myProfile')
     return render(request, 'User/changePassword.html')

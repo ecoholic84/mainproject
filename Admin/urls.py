@@ -23,4 +23,8 @@ urlpatterns = [
     path('editSubcategory/<int:eid>',views.editSubcategory,name="editSubcategory"),
     path('deleteSubcategory/<int:did>',views.deleteSubcategory,name="deleteSubcategory"),
 
+    path('type/',views.types,name="type"),
+    path('deleteType/<int:did>',views.deleteType,name="deleteType"),
+    path('editType/<int:eid>',views.editType,name="editType"),
+
 ]

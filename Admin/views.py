@@ -125,3 +125,26 @@ def editSubcategory(request,eid):
 
 def adminDashboard(request):
     return render(request,'Admin/adminDashboard.html')
+
+# Type
+def types(request):
+        typ=tbl_type.objects.all()
+        if request.method=="POST":
+            tbl_type.objects.create(type_name=request.POST.get('txt_type_name'))
+            return redirect('Admin:type')
+        else:    
+            return render(request,'Admin/type.html',{"type":typ})
+
+
+def deleteType(request,did):
+    tbl_type.objects.get(id=did).delete()
+    return redirect('Admin:type')
+
+def editType(request,eid):
+    thisType=tbl_type.objects.get(id=eid)
+    if request.method=="POST":
+        thisType.type_name=request.POST.get('txt_type_name')
+        thisType.save()
+        return redirect('Admin:type')
+    else:
+        return render(request,'Admin/type.html',{"editType":thisType})
