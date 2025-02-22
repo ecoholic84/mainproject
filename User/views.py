@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from Guest.models import *
+from User.models import *
 
 # Create your views here.
 def userDashboard(request):
@@ -36,3 +37,17 @@ def changePassword(request):
         else:
             return redirect('User:myProfile')
     return render(request, 'User/changePassword.html')
+
+# Feedback
+def Feedback(request):
+    fb=tbl_feedback.objects.all()
+    if request.method=="POST":
+        content=request.POST.get("txt_feedback")
+        tbl_feedback.objects.create(feedback_content=content,user=tbl_user.objects.get(id=request.session['u_id']))
+        return redirect('User:feedback')
+    else:
+        return render(request,'User/feedback.html',{'feed':fb})
+        
+def dlt_feedback(request,did):
+    tbl_feedback.objects.get(id=did).delete()
+    return redirect('User:feedback')
