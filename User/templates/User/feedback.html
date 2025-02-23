@@ -30,7 +30,7 @@
                 <tr>
                     <td>{{forloop.counter}}</td>
                     <td>{{i.feedback_content}}</td>
-                    <td><a href="{% url 'Admin:deleteFeedback' i.id  %}">Delete</a></td>
+                    <td><a href="{% url 'User:deleteFeedback' i.id  %}">Delete</a></td>
                 </tr>
                 {% endfor %}
             </table>

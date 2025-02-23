@@ -10,6 +10,6 @@ urlpatterns = [
     path('changePassword/', views.changePassword, name='changePassword'),
 
     path('feedback/', views.Feedback, name='feedback'),
-    path('dlt_feedback/<int:did>', views.dlt_feedback, name='dlt_feedback'),
+    path('deleteFeedback/<int:did>', views.deleteFeedback, name='deleteFeedback'),
     
 ]
