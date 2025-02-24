@@ -51,3 +51,28 @@ def Feedback(request):
 def deleteFeedback(request,did):
     tbl_feedback.objects.get(id=did).delete()
     return redirect('User:feedback')
+
+# Complaint
+def Complaint(request):
+    cp=tbl_complaint.objects.all()
+    if request.method=="POST":
+        complaintTitle=request.POST.get("txt_complaint_title")
+        complaintContent=request.POST.get("txt_complaint_content")
+        tbl_complaint.objects.create(complaint_title=complaintTitle,complaint_content=complaintContent,user_id=tbl_user.objects.get(id=request.session['u_id']))
+        return redirect('User:complaint')
+    else:
+        return render(request,'User/complaint.html', {'comp':cp})
+    
+def deleteComplaint(request,did):
+    tbl_complaint.objects.get(id=did).delete()
+    return redirect('User:complaint')
+
+def editComplaint(request,eid):
+    thisComplaint=tbl_complaint.objects.get(id=eid)
+    if request.method=="POST":
+        thisComplaint.complaint_title=request.POST.get('txt_complaint_title')
+        thisComplaint.complaint_content=request.POST.get('txt_complaint_content')
+        thisComplaint.save()
+        return redirect('User:complaint')
+    else:
+        return render(request,'User/complaint.html', {"editComplaint":thisComplaint})

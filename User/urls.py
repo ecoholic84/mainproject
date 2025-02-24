@@ -12,4 +12,7 @@ urlpatterns = [
     path('feedback/', views.Feedback, name='feedback'),
     path('deleteFeedback/<int:did>', views.deleteFeedback, name='deleteFeedback'),
     
+    path('complaint/', views.Complaint, name='complaint'),
+    path('deleteComplaint/<int:did>', views.deleteComplaint, name='deleteComplaint'),
+    path('editComplaint/<int:eid>', views.editComplaint, name='editComplaint'),
 ]

@@ -18,7 +18,7 @@
 
 <html>
     <body>
-        <h1 align="center">Feedback Inputs</h1>
+        <h1 align="center">Previous Feedbacks</h1>
         <form method="POST">
             <table border="1" align="center">
                 <tr>
@@ -28,8 +28,8 @@
                 </tr>
                 {% for i in feed %}
                 <tr>
-                    <td>{{forloop.counter}}</td>
-                    <td>{{i.feedback_content}}</td>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.feedback_content }}</td>
                     <td><a href="{% url 'User:deleteFeedback' i.id  %}">Delete</a></td>
                 </tr>
                 {% endfor %}
