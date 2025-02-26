@@ -27,4 +27,6 @@ urlpatterns = [
     path('deleteType/<int:did>',views.deleteType,name="deleteType"),
     path('editType/<int:eid>',views.editType,name="editType"),
 
+    path('complaintInbox/',views.complaintInbox,name="complaintInbox"),
+    path('replyCompliant/<int:rid>',views.replyCompliant, name='replyCompliant'),
 ]

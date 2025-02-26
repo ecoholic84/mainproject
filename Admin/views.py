@@ -1,5 +1,8 @@
 from django.shortcuts import render,redirect
 from Admin.models import *
+from User.models import *
+from datetime import datetime
+
 # Create your views here.
 
 # District Section
@@ -133,7 +136,7 @@ def types(request):
             tbl_type.objects.create(type_name=request.POST.get('txt_type_name'))
             return redirect('Admin:type')
         else:    
-            return render(request,'Admin/type.html',{"type":typ})
+            return render(request,'Admin/type.html',{"type":typ}) # here 'type' is a variable name and its assigned data is the variable 'typ'.
 
 
 def deleteType(request,did):
@@ -148,3 +151,19 @@ def editType(request,eid):
         return redirect('Admin:type')
     else:
         return render(request,'Admin/type.html',{"editType":thisType})
+
+# Compliant Inbox
+def complaintInbox(request):
+    complaints=tbl_complaint.objects.all()
+    return render(request,'Admin/complaintInbox.html',{"complaintsInbox":complaints})
+
+def replyCompliant(request,rid):
+    thisCompliant=tbl_complaint.objects.get(id=rid)
+    if request.method=="POST":
+        thisCompliant.complaint_reply=request.POST.get("txt_compliant_content")
+        thisCompliant.complaint_status=1
+        thisCompliant.complaint_reply_date=datetime.now()
+        thisCompliant.save()
+        return redirect('Admin:complaintInbox')  
+    else:
+        return render(request,'Admin/replyCompliant.html')

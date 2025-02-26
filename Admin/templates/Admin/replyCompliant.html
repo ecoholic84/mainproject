@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>Reply Page</title>
+    </head>
+    <body>
+        <form method="POST">
+            {% csrf_token %}
+            <table align="center" border="1">
+                <tr>
+                    <td>Reply</td>
+                    <td><textarea name="txt_compliant_content" rows="5" cols="50" id="txt_compliant_content" required></textarea></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center"><input type="submit" value="Reply"></td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>

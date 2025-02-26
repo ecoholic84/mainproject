@@ -73,6 +73,6 @@ def editComplaint(request,eid):
         thisComplaint.complaint_title=request.POST.get('txt_complaint_title')
         thisComplaint.complaint_content=request.POST.get('txt_complaint_content')
         thisComplaint.save()
-        return redirect('User:complaint')
+        return redirect('User:complaint') #complaint here is the url which we have defined in urls.py, Django looks for a URL pattern name that matches 'User/complaint' in your urls.py file.
     else:
         return render(request,'User/complaint.html', {"editComplaint":thisComplaint})
