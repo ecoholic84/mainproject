@@ -7,6 +7,8 @@ from datetime import datetime
 
 # District Section
 def district(request):
+    # insert_countries_to_db()
+    
     district=tbl_district.objects.all()
     if request.method=="POST":
         tbl_district.objects.create(district_name=request.POST.get('txt_district'))
@@ -125,7 +127,6 @@ def editSubcategory(request,eid):
         return render(request,'Admin/Subcategory.html',{"editsub":sub, "category":category})
 
 # Dashboard
-
 def adminDashboard(request):
     return render(request,'Admin/adminDashboard.html')
 
@@ -137,7 +138,6 @@ def types(request):
             return redirect('Admin:type')
         else:    
             return render(request,'Admin/type.html',{"type":typ}) # here 'type' is a variable name and its assigned data is the variable 'typ'.
-
 
 def deleteType(request,did):
     tbl_type.objects.get(id=did).delete()
